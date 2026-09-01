@@ -1,0 +1,10 @@
+{
+  "player_animator_registry_version": 1,
+  "animations": [
+    { "id": "pa_idle_01", "pa_id": 101, "name": "Idle - Relaxed" },
+    { "id": "pa_idle_02", "pa_id": 102, "name": "Idle - Alert" },
+    { "id": "pa_run_neko", "pa_id": 201, "name": "Run - Neko (all fours)" },
+    { "id": "pa_lick", "pa_id": 301, "name": "Lick Self" },
+    { "id": "pa_scratch_ear", "pa_id": 302, "name": "Scratch Ear" }
+  ]
+}

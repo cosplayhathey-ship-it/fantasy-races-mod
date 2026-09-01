@@ -1,0 +1,20 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '5.1.56' apply false
+    id 'java'
+}
+
+group = 'com.cosplayhathey'
+version = '0.1.0'
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    // Add mod repositories for Geckolib / Player Animator as needed
+}
+
+// This is a minimal scaffolding. Replace forgeVersion with the correct Forge MDK coordinates when setting up locally.
+
+dependencies {
+    // implementation fg.deobf("net.minecraftforge:forge:1.20.1-xx.xx.x.xx")
+}

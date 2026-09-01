@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion=">=46.0"
+license="MIT"
+                
+[[mods]]
+modId="fantasyracesmod"
+version="0.1.0"
+displayName="Fantasy Races Mod"
+description='''
+Fantasy Races Mod - scaffold for adding multiple races with Geckolib and Player Animator integration.
+'''
+
+authors="cosplayhathey-ship-it"
+
+# Optional: dependencies on other mods (Geckolib, Player Animator) will be added later

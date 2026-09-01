@@ -1,0 +1,6 @@
+{
+  "mod": "fantasy_races_mod",
+  "name": "Fantasy Races Mod",
+  "description": "Animation & race scaffold for Forge 1.20.1 with Geckolib / Player Animator integration",
+  "version": "0.1.0"
+}
