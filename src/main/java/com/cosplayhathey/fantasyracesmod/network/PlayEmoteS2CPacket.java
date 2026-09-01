@@ -45,19 +45,13 @@ public class PlayEmoteS2CPacket {
             // Add the emote to the client-side pending map so renderers/Geo layers can pick it up
             NekoEmoteHandler.put(pkt.playerId, pkt.emoteType);
 
-            // Play a sound for the emote locally. Prefer mod-registered sound events if present; fall back to vanilla sounds.
-            SoundEvent se = null;
+            // Play a sound for the emote locally only for SCRATCH. LICK is intentionally silent.
             if (pkt.emoteType == PlayEmotePacket.EmoteType.SCRATCH) {
-                se = ForgeRegistries.SOUND_EVENTS.getValue(new net.minecraft.resources.ResourceLocation(FantasyRacesMod.MODID, "scratch"));
+                SoundEvent se = ForgeRegistries.SOUND_EVENTS.getValue(new net.minecraft.resources.ResourceLocation(FantasyRacesMod.MODID, "scratch"));
                 if (se == null) se = SoundEvents.PLAYER_ATTACK_STRONG;
-            } else if (pkt.emoteType == PlayEmotePacket.EmoteType.LICK) {
-                se = ForgeRegistries.SOUND_EVENTS.getValue(new net.minecraft.resources.ResourceLocation(FantasyRacesMod.MODID, "lick"));
-                if (se == null) se = SoundEvents.CAT_AMBIENT;
-            }
-
-            if (se != null) {
-                // Play at the player's position locally
-                player.playSound(se, 1.0F, 1.0F);
+                if (se != null) {
+                    player.playSound(se, 1.0F, 1.0F);
+                }
             }
         });
         ctx.get().setPacketHandled(true);
