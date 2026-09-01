@@ -1,4 +1,4 @@
-// Add Geckolib dependency placeholder. Replace <geckolib-version> with a compatible version for Forge 1.20.1.
+// Add Geckolib dependency for Forge 1.20.1 (4.4.7) from Cloudsmith repository.
 plugins {
     id 'net.minecraftforge.gradle' version '5.1.56' apply false
     id 'java'
@@ -11,15 +11,17 @@ targetCompatibility = '17'
 
 repositories {
     mavenCentral()
-    // Add mod repositories for Geckolib / Player Animator as needed
+    // GeckoLib Cloudsmith repository
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    // Add other mod repositories for Player Animator / Emotecraft as needed
 }
 
 dependencies {
-    // Forge MDK coordinate must be set by the developer locally. Example:
+    // Replace with the exact Forge MDK coordinate when setting up locally. Example:
     // implementation fg.deobf("net.minecraftforge:forge:1.20.1-47.1.0")
 
-    // Geckolib (placeholder) - replace <geckolib-version> with real version supporting 1.20.1
-    // implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.20:<geckolib-version>")
+    // Geckolib for Forge 1.20.1
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.20.1:4.4.7")
 
     // Player Animator / Emotecraft - add when you have coordinates
     // implementation fg.deobf("com.example:player-animator:<version>")
