@@ -1,5 +1,8 @@
 package com.cosplayhathey.fantasyracesmod.client;
 
+import com.cosplayhathey.fantasyracesmod.network.NetworkHandler;
+import com.cosplayhathey.fantasyracesmod.network.PlayEmotePacket;
+import com.cosplayhathey.fantasyracesmod.network.PlayEmotePacket.EmoteType;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +24,17 @@ public class ClientModEvents {
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
-        // Key handling will be implemented later (send packet to server to trigger animations)
+        // Note: InputEvent.Key is fired for raw key presses; to safely detect key press we should poll KeyMapping.isDown in client tick.
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(net.minecraftforge.event.TickEvent.ClientTickEvent event) {
+        if (event.phase != net.minecraftforge.event.TickEvent.Phase.END) return;
+        if (LICK_KEY.consumeClick()) {
+            NetworkHandler.CHANNEL.sendToServer(new PlayEmotePacket(EmoteType.LICK));
+        }
+        if (SCRATCH_KEY.consumeClick()) {
+            NetworkHandler.CHANNEL.sendToServer(new PlayEmotePacket(EmoteType.SCRATCH));
+        }
     }
 }
