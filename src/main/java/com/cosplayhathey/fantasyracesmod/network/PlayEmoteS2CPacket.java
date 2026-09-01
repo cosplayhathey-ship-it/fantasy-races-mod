@@ -9,7 +9,7 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-import com.cosplayhathey.fantasyracesmod.client.NekoGeoLayer;
+import com.cosplayhathey.fantasyracesmod.client.NekoEmoteHandler;
 
 public class PlayEmoteS2CPacket {
     private final UUID playerId;
@@ -35,8 +35,8 @@ public class PlayEmoteS2CPacket {
             if (mc.level == null) return;
             Entity e = mc.level.getEntity(pkt.playerId);
             if (!(e instanceof Player)) return;
-            // Instead of printing a chat message, add the emote to the pending map so the NekoGeoLayer can pick it up
-            NekoGeoLayer.pendingEmotes.put(pkt.playerId, pkt.emoteType);
+            // Add the emote to the client-side pending map so renderers/Geo layers can pick it up
+            NekoEmoteHandler.put(pkt.playerId, pkt.emoteType);
         });
         ctx.get().setPacketHandled(true);
     }
