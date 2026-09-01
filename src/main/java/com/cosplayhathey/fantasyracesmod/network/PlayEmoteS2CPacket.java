@@ -9,6 +9,8 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
+import com.cosplayhathey.fantasyracesmod.client.NekoGeoLayer;
+
 public class PlayEmoteS2CPacket {
     private final UUID playerId;
     private final PlayEmotePacket.EmoteType emoteType;
@@ -33,10 +35,8 @@ public class PlayEmoteS2CPacket {
             if (mc.level == null) return;
             Entity e = mc.level.getEntity(pkt.playerId);
             if (!(e instanceof Player)) return;
-            Player player = (Player) e;
-            // TODO: Trigger client-side animation playback for this player (e.g., via Geckolib or a player layer flag)
-            // For now we simply print to log
-            mc.execute(() -> mc.player.sendMessage(new net.minecraft.network.chat.TextComponent(player.getName().getString() + " performed emote: " + pkt.emoteType), java.util.UUID.randomUUID()));
+            // Instead of printing a chat message, add the emote to the pending map so the NekoGeoLayer can pick it up
+            NekoGeoLayer.pendingEmotes.put(pkt.playerId, pkt.emoteType);
         });
         ctx.get().setPacketHandled(true);
     }
