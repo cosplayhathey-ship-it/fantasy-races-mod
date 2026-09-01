@@ -1,0 +1,7 @@
+This is a placeholder texture location for the Neko ears/tail model.
+
+Please create a 64x64 PNG texture and place it at:
+
+src/main/resources/assets/fantasy_races_mod/textures/entity/neko.png
+
+The "neko.geo.json" model uses UVs starting at (0,0). You can replace this placeholder with any art you like (ears/tail). If you want, upload the PNG and I will add it to the repository.
