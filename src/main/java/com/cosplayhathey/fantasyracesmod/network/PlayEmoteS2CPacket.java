@@ -4,12 +4,17 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
 
 import com.cosplayhathey.fantasyracesmod.client.NekoEmoteHandler;
+import com.cosplayhathey.fantasyracesmod.FantasyRacesMod;
 
 public class PlayEmoteS2CPacket {
     private final UUID playerId;
@@ -35,8 +40,25 @@ public class PlayEmoteS2CPacket {
             if (mc.level == null) return;
             Entity e = mc.level.getEntity(pkt.playerId);
             if (!(e instanceof Player)) return;
+            Player player = (Player) e;
+
             // Add the emote to the client-side pending map so renderers/Geo layers can pick it up
             NekoEmoteHandler.put(pkt.playerId, pkt.emoteType);
+
+            // Play a sound for the emote locally. Prefer mod-registered sound events if present; fall back to vanilla sounds.
+            SoundEvent se = null;
+            if (pkt.emoteType == PlayEmotePacket.EmoteType.SCRATCH) {
+                se = ForgeRegistries.SOUND_EVENTS.getValue(new net.minecraft.resources.ResourceLocation(FantasyRacesMod.MODID, "scratch"));
+                if (se == null) se = SoundEvents.PLAYER_ATTACK_STRONG;
+            } else if (pkt.emoteType == PlayEmotePacket.EmoteType.LICK) {
+                se = ForgeRegistries.SOUND_EVENTS.getValue(new net.minecraft.resources.ResourceLocation(FantasyRacesMod.MODID, "lick"));
+                if (se == null) se = SoundEvents.CAT_AMBIENT;
+            }
+
+            if (se != null) {
+                // Play at the player's position locally
+                player.playSound(se, 1.0F, 1.0F);
+            }
         });
         ctx.get().setPacketHandled(true);
     }

@@ -1,0 +1,18 @@
+{
+  "fantasy_races_mod.scratch": {
+    "sounds": [
+      {
+        "name": "fantasy_races_mod:scratch",
+        "stream": false
+      }
+    ]
+  },
+  "fantasy_races_mod.lick": {
+    "sounds": [
+      {
+        "name": "fantasy_races_mod:lick",
+        "stream": false
+      }
+    ]
+  }
+}

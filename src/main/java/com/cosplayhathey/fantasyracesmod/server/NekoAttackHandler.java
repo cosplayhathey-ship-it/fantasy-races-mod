@@ -9,10 +9,14 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
 import java.util.UUID;
@@ -60,7 +64,12 @@ public class NekoAttackHandler {
         // Swing animation
         player.swing(InteractionHand.MAIN_HAND);
 
-        // Broadcast emote packet so clients can play the scratch animation
+        // Play scratch sound at target position. Prefer mod sound if registered, fall back to vanilla.
+        SoundEvent se = ForgeRegistries.SOUND_EVENTS.getValue(new net.minecraft.resources.ResourceLocation("fantasy_races_mod", "scratch"));
+        if (se == null) se = SoundEvents.PLAYER_ATTACK_STRONG;
+        player.level.playSound(null, target.blockPosition(), se, SoundSource.PLAYERS, 1.0F, 1.0F);
+
+        // Broadcast emote packet so clients can play the scratch animation and local sound
         NetworkHandler.CHANNEL.send(PacketDistributor.ALL.noArg(), new PlayEmoteS2CPacket(player.getUUID(), PlayEmotePacket.EmoteType.SCRATCH));
     }
 }
